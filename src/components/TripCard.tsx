@@ -1,13 +1,12 @@
 import { Body1, Button, Caption1, Card, CardFooter, CardHeader } from '@fluentui/react-components'
-import React, { FC, useEffect, useRef, useState } from 'react'
+import moment from 'moment'
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { useRecoilState } from 'recoil'
 import styled from 'styled-components'
 import { f } from '../helpers.ts'
 import { ITrip } from '../interfaces.ts'
-import DateForm from './DateForm.tsx'
-import { StyledInput } from './Input.tsx'
-import { useRecoilState } from 'recoil'
 import { tripsState } from '../state.ts'
-import moment from 'moment'
+import { StyledInput } from './Input.tsx'
 
 const StyledCard = styled(Card)`
   display: flex;
@@ -107,6 +106,7 @@ export const TripCard = (props) => {
     endDate,
     description,
     id,
+    index,
   } = props
 
   const [trips, setTrips] = useRecoilState(tripsState)
@@ -115,6 +115,12 @@ export const TripCard = (props) => {
   const formattedDates = `From ${f(startDate)} to ${f(endDate)}`
 
   const onSaveCallbackRef = useRef(() => {})
+
+  const daysAway = useMemo(() => {
+    const start = moment(startDate)
+    const end = moment(endDate)
+    return end.diff(start, 'days') - 1
+  }, [startDate, endDate])
 
   const onButtonClick = () => {
     if (isEditing) {
@@ -138,10 +144,19 @@ export const TripCard = (props) => {
           <CardHeader
             header={
               <Body1>
-                <b>{description}</b>
+                <b>{description || `Trip ${index + 1}`}</b>
               </Body1>
             }
-            description={<Caption1>{formattedDates}</Caption1>}
+            description={(
+              <div>
+                <div>
+                  <Caption1>{formattedDates}</Caption1>
+                </div>
+                <div>
+                  <Caption1><b>{daysAway}</b> days away</Caption1>
+                </div>
+              </div>
+            )}
           />
         )}
         {isEditing && (

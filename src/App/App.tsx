@@ -1,10 +1,4 @@
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil'
+import { RecoilRoot, } from 'recoil'
 
 import styled from 'styled-components'
 import TripsList from '../components/TripsList.tsx'

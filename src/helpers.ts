@@ -79,7 +79,9 @@ export const getTravelDurationForAllPeriods = (start: Moment, end: Moment, perio
   }, 0)
 }
 
-export const diffInYmd = (a: Moment, b: Moment) => {
+export const diffInYmd = (currentDate: Moment, startDate: Moment) => {
+  const [a, b] = [currentDate, startDate].map(d => d.clone())
+
   const years = a.diff(b, 'year')
   b.add(years, 'years')
 
@@ -90,7 +92,12 @@ export const diffInYmd = (a: Moment, b: Moment) => {
   return years + ' years, ' + months + ' months and ' + days + ' days'
 }
 
-export const f = (d: Moment) => d.format('YYYY-MM-DD')
+export const f = (d: Moment) => {
+  if (!d || !d.format) {
+    return
+  }
+  return d.format('YYYY-MM-DD')
+}
 
 export const calculateLeaveToRemain = (startDate: Moment, currentDate: Moment = moment(), periodsOfAbsence: IOverseasPeriod[]) => {
   let max = 0
