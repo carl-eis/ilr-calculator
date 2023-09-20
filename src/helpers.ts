@@ -47,6 +47,10 @@ export const getTravelDurationForSinglePeriod = (
   period: IOverseasPeriod,
 ) => {
   const { tripStartDate, tripEndDate } = period
+  if (!tripStartDate || !tripEndDate) {
+    return 0
+  }
+
   if (tripEndDate.isBefore(chunkStart)) {
     return 0
   }
