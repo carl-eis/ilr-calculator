@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App/App.tsx'
 import './index.css'
 
+// Setup themes
 import { FluentProvider, teamsLightTheme } from '@fluentui/react-components';
 
 
