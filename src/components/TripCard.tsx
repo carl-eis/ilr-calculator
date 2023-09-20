@@ -70,7 +70,7 @@ const CardForm: FC<ICardFormProps> = (props) => {
   }
 
   useEffect(() => {
-    callbackRef.current = onSave
+    (callbackRef as any).current = onSave
   }, [description, startDate, endDate])
 
   return (

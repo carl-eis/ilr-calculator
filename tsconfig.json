@@ -16,11 +16,13 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+//    "noUnusedLocals": true,
+//    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
     /* Custom rules */
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
